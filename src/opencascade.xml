@@ -1,0 +1,411 @@
+<?xml version= "1.0" ?>
+<!--
+ C-API for OpenCascade wraps OpenCascase library to the C\C++ compiler independent C library
+ Copyright (C) 2018 Vitaly Kovalev
+
+ This file is part of C-API for OpenCascade.
+
+ This library is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation, either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library.  If not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ -->
+
+<OpenCASCADE:api xmlns:OpenCASCADE= "http://gkmsoft.ru/beautifulcapi" project_name="OpenCASCADE" major_version="7" minor_version="3" patch_version="0">
+    <namespace name="Bcapi">
+        <mapped_type name="Standard_Integer" wrap_type="int32_t" c_type="int32_t" implementation_type="Standard_Integer">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Real" wrap_type="double" c_type="double" implementation_type="Standard_Real">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Boolean" wrap_type="bool" c_type="bool" implementation_type="Standard_Boolean">Standard_Boolean
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_ShortReal" wrap_type="float" c_type="float" implementation_type="Standard_ShortReal">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Character" wrap_type="signed char" c_type="int8_t" implementation_type="Standard_Character">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Byte" wrap_type="unsigned char" c_type="uint8_t" implementation_type="Standard_Byte">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Address" wrap_type="void*" c_type="void*" implementation_type="Standard_Address">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+        <mapped_type name="Standard_Size" wrap_type="size_t" c_type="uint64_t" implementation_type="Standard_Size">
+            <include_header file="stdint.h" system="true"/>
+        </mapped_type>
+
+        <enumeration name="XCAFDoc_ColorType" underlying_type="unsigned char">
+            <item name="XCAFDoc_ColorGen"/>
+            <item name="XCAFDoc_ColorSurf"/>
+            <item name="XCAFDoc_ColorCurv"/>
+        </enumeration>
+
+        <enumeration name="IFSelect_ReturnStatus" underlying_type="unsigned char">
+            <item name="IFSelect_RetVoid"/>
+            <item name="IFSelect_RetDone"/>
+            <item name="IFSelect_RetError"/>
+            <item name="IFSelect_RetFail"/>
+            <item name="IFSelect_RetStop"/>
+        </enumeration>
+
+        <enumeration name="TopAbs_ShapeEnum" underlying_type="unsigned char">
+            <item name="TopAbs_COMPOUND"/>
+            <item name="TopAbs_COMPSOLID"/>
+            <item name="TopAbs_SOLID"/>
+            <item name="TopAbs_SHELL"/>
+            <item name="TopAbs_FACE"/>
+            <item name="TopAbs_WIRE"/>
+            <item name="TopAbs_EDGE"/>
+            <item name="TopAbs_VERTEX"/>
+            <item name="TopAbs_SHAPE"/>
+        </enumeration>
+
+        <enumeration name="CSLib_DerivativeStatus" underlying_type="unsigned char">
+            <item name="CSLib_Done"/>
+            <item name="CSLib_D1uIsNull"/>
+            <item name="CSLib_D1vIsNull"/>
+            <item name="CSLib_D1IsNull"/>
+            <item name="CSLib_D1uD1vRatioIsNull"/>
+            <item name="CSLib_D1vD1uRatioIsNull"/>
+            <item name="CSLib_D1uIsParallelD1v"/>
+        </enumeration>
+
+        <enumeration name="CSLib_NormalStatus" underlying_type="unsigned char">
+            <item name="CSLib_Singular"/>
+            <item name="CSLib_Defined"/>
+            <item name="CSLib_InfinityOfSolutions"/>
+            <item name="CSLib_D1NuIsNull"/>
+            <item name="CSLib_D1NvIsNull"/>
+            <item name="CSLib_D1NIsNull"/>
+            <item name="CSLib_D1NuNvRatioIsNull"/>
+            <item name="CSLib_D1NvNuRatioIsNull"/>
+            <item name="CSLib_D1NuIsParallelD1Nv"/>
+        </enumeration>
+
+        <!--template>
+            <argument name="WorkType" type="class"/>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::TDocStd_Document"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFApp_Application"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFDoc_ShapeTool"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFDoc_LayerTool"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::TColStd_HSequenceOfExtendedString"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::TDataStd_Name"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFDoc_ColorTool"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFDoc_Location"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::XCAFDoc_MaterialTool"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::Poly_Triangulation"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::Geom_Curve"/>
+            </instantiation>
+            <instantiation>
+                <argument name="WorkType" value="Bcapi::Geom_Surface"/>
+            </instantiation>
+
+            <class name="handle" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;WorkType>" implementation_class_header="Standard_Handle.hxx">
+                <constructor name="default"/>
+            </class>
+        </template-->
+
+        <class name="handle_TDocStd_Document" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;TDocStd_Document>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFApp_Application" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFApp_Application>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFDoc_ShapeTool" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFDoc_ShapeTool>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFDoc_LayerTool" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFDoc_LayerTool>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_TColStd_HSequenceOfExtendedString" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;TColStd_HSequenceOfExtendedString>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_TDataStd_Name" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;TDataStd_Name>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFDoc_ColorTool" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFDoc_ColorTool>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFDoc_Location" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFDoc_Location>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_XCAFDoc_MaterialTool" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;XCAFDoc_MaterialTool>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_Poly_Triangulation" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;Poly_Triangulation>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_Geom_Curve" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;Geom_Curve>" implementation_class_header="Standard_Handle.hxx"/>
+        <class name="handle_Geom_Surface" lifecycle="copy_semantic" impelementation_class_name="opencascade::handle&lt;Geom_Surface>" implementation_class_header="Standard_Handle.hxx"/>
+
+        <class name="Standard_GUID" lifecycle="copy_semantic" implementation_class_name="Standard_GUID" implementation_class_header="Standard_GUID.hxx">
+            <constructor name="default"/>
+        </class>
+
+        <class name="TDF_Label" lifecycle="copy_semantic" implementation_class_name="TDF_Label" implementation_class_header="TDF_Label.hxx">
+            <constructor name="default"/>
+            <method name="FindAttribute" return="Standard_Boolean" const="true">
+                <argument name="theID" type="Standard_GUID"/>
+                <argument name="theAttr" type="opencasade::handle&lt;XCAFDoc_ShapeTool&gt;"/>
+            </method>
+            <method name="IsNull" return="Standard_Boolean" const="true"/>
+            <method name="HasChild" return="Standard_Boolean" const="true"/>
+        </class>
+
+        <class name="BRep_Builder" lifecycle="copy_semantic" implementation_class_name="BRep_Builder" implementation_class_header="BRep_Builder.hxx">
+            <constructor name="default"/>
+            <method name="MakeCompound" const="true">
+                <argument name="C" type="Bcapi::TopoDS_Compound"/>
+            </method>
+            <method name="Add" const="true">
+                <argument name="S" type="Bcapi::TopoDS_Shape"/>
+                <argument name="C" type="const Bcapi::TopoDS_Shape"/>
+            </method>
+        </class>
+
+        <class name="TDocStd_Document" lifecycle="copy_semantic" implementation_class_name="TDocStd_Document" implementation_class_header="TDocStd_Document.hxx">
+            <constructor name="default"/>
+            <method name="Main" return="Bcapi::TDF_Label" const="true"/>
+        </class>
+
+        <class name="XCAFApp_Application" lifecycle="copy_semantic" implementation_class_name="XCAFApp_Application" implementation_class_header="XCAFApp_Application.hxx">
+            <constructor name="default"/>
+            <method name="NewDocument">
+                <argument name="format" type="Bcapi::TCollections_ExtendedString"/>
+                <argument name="aDoc" type="Bcapi::handle&lt;Bcapi::TDocStd_Document&gt;"/>
+            </method>
+        </class>
+
+        <class name="XCAFDoc_DocumentTool" lifecycle="copy_semantic" implementation_class_name="XCAFDoc_DocumentTool" implementation_class_header="XCAFDoc_DocumentTool.hxx">
+            <consturctor name="default"/>
+        </class>
+
+        <function name="ShapesLabel" return="Bcapi::TDF_Label" implementation_name="XCAFDoc_DocumentTool::ShapesLabel" implementation_header="XCAFDoc_DocumentTool.hxx">
+            <argument name="acces" type="Bcapi::TDF_Label"/>
+        </function>
+        <function name="ShapeTool" return="Bcapi::handle_XCAFDoc_ShapeTool" implementation_name="XCAFDoc_DocumentTool::ShapeTool" implementation_header="XCAFDoc_DocumentTool.hxx">
+            <argument name="acces" type="Bcapi::TDF_Label"/>
+        </function>
+        <function name="LayerTool" return="Bcapi::handle_XCAFDoc_LayerTool;" implementation_name="XCAFDoc_DocumentTool::LayerTool" implementation_header="XCAFDoc_DocumentTool.hxx">
+            <argument name="acces" type="Bcapi::TDF_Label"/>
+        </function>
+        <function name="ColorTool" return="Bcapi::handle_XCAFDoc_ColorTool;" implementation_name="XCAFDoc_DocumentTool::ColorTool" implementation_header="XCAFDoc_DocumentTool.hxx">
+            <argument name="acces" type="Bcapi::TDF_Label"/>
+        </function>
+
+        <class name="XCAFDoc_ShapeTool" lifecycle="copy_semantic" implementation_class_name="XCAFDoc_ShapeTool" implementation_class_header="XCAFDoc_ShapeTool.hxx">
+            <constructor name="default"/>
+            <method name="GetFreeShapes" const="true">
+                <argument name="FreeLabels" type="Bcapi::TDF_LabelSequence"/>
+            </method>
+            <method name="GetShape" return="Bcapi::TopoDS_Shape">
+                <argument name="L" type="Bcapi::TDF_Label"/>
+            </method>
+        </class>
+
+        <class name="XCAFDoc_LayerTool" lifecycle="copy_semantic" implementation_class_name="XCAFDoc_LayerTool" implementation_class_header="XCAFDoc_LayerTool.hxx">
+            <constructor name="default"/>
+            <method name="GetLayers" return="Bcapi::handle&gt;Bcapi::TColStd_HSequenceOfExtendedString&lt;">
+                <argument name="Sh" type="Bcapi::TopoDS_Shape"/>
+            </method>
+        </class>
+
+        <class name="TCollection_ExtendedString" lifecycle="copy_semantic" impelementation_class_name="TCollection_ExtendedString" implementation_class_header="TCollection_ExtendedString.hxx">
+            <constructor name="default"/>
+            <method name="Lenght" return="Bcapi::Standard_Integer" const="true"/>
+            <method name="LenghtOfCString" return="Bcapi::Standard_Integer" const="true"/>
+            <method name="ToUTF8CString" return="Bcapi::Standard_Integer" const="true">
+                <argument name="theCString" type="Bcapi::Standard_PCharacter"/>
+            </method>
+        </class>
+
+        <class name="TCollection_AsciiString" lifecycle="copy_semantic" implementation_class_name="TCollection_AsciiString" implementation_class_header="TCollection_AsciiString.hxx">
+            <constructor name="default"/>
+            <constructor name="FromExtendedString">
+                <argument name="astring" type="Bcapi::TCollection_ExtendedString"/>
+            </constructor>
+            <constructor name="FromExtendedString2">
+                <argument name="astring" type="Bcapi::TCollection_ExtendedString"/>
+                <argument name="replaceNonAscii" type="const Bcapi::Standard_Character"/>
+            </constructor>
+            <method name="ToCString" return="Bcapi::Standard_CString" const="true"/>
+        </class>
+
+        <class name="TDF_ChildIterator" lifecycle="copy_semantic" implementation_class_name="TDF_ChildIterator" implementation_class_header="TDF_ChildIterator.hxx">
+            <constructor name="default"/>
+            <method name="Initialize">
+                <argument name="aLabel" type="const TDF_Label"/>
+            </method>
+        </class>
+
+        <template>
+            <argument name="TheItemType" type="class"/>
+                <instantiation>
+                    <argument name="TheItemType" type="Bcapi::TCollection_ExtendedString"/>
+                </instantiation>
+                <class name="NCollection_Sequence" lifecycle="copy_semantic" implementation_class_name="NCollection_Sequence" implementation_class_header="NCollection_Sequence.hxx">
+                    <constructor name="default"/>
+                    <method name="Length" return="Bcapi::Standard_Integer" const="true"/>
+                    <method name="Value" return="Bcapi::TCollection_ExtendedString">
+                        <argument name="theIndex" type="Bcapi::Standard_Integer"/>
+                    </method>
+                </class>
+        </template>
+
+        <function name="GetID" return="const Bcapi::Standard_GUID" implementation_class_name="TDataStd_Name::GetID" implementation_class_header="TDataStd_Name.hxx" overload_suffix="Std_Name"/>
+
+        <function name="GetID" return="const Bcapi::Standard_GUID" implementation_class_name="XCAFDoc_Location::GetID" implementation_class_header="XCAFDoc_Location.hxx" overload_suffix="Doc_Location"/>
+
+        <class name="TDataStd_Name" lifecycle="copy_semantic" implementation_class_name="TDataStd_Name" implementation_class_header="TDataStd_Name.hxx">
+            <constructor name="default"/>
+            <method name="Get" return="Bcapi::TCollectionExtendedString" const="true"/>
+        </class>
+
+        <class name="XCAFDoc_ColorTool" lifecycle="copy_semantic" implementation_class_name="XCAFDoc_ColorTool" implementation_class_header="XCAFDoc_ColorTool.hxx">
+            <constructor name="default"/>
+            <method name="IsSet" return="Bcapi::Standard_Boolean">
+                <argument name="S" type="Bcapi::TopoDS_Shape"/>
+                <argument name="type" type="Bcapi::XCAFDoc_ColorType"/>
+            </method>
+        </class>
+
+        <class name="XCAFDoc_Location" lifecycle="copy_semantic" implementation_class_name="XCAFDoc_Location" implementation_class_header="XCAFDoc_Location.hxx">
+            <constructor name="default"/>
+            <method name="Get" return="Bcapi::TopLoc_Location" const="true"/>
+        </class>
+
+        <class name="Poly_Triangulation" lifecycle="copy_semantic" implementation_class_name="Poly_Triangulation" implementation_class_header="Poly_Triangulation.hxx">
+            <constructor name="default"/>
+            <method name="NbTriangles" return="Bcapi::Standard_Integer" const="true"/>
+            <method name="Triangles" return="Bcapi::Poly_Array1OfTriangle" const="true"/>
+            <method name="NbNodes" return="Bcapi::Standatd_Integer" const="true"/>
+            <method name="Nodes" return="Bcapi::TColgp_Array1OfPnt" const="true"/>
+        </class>
+
+        <class name="Geom_Curve" lifecycle="copy_semantic" implementation_class_name="Geom_Curve" implementation_class_header="Geom_Curve.hxx">
+            <constructor name="default"/>
+            <method name="Value" return="Bcapi::gp_Pnt" const="true">
+                <argument name="U" type="Bcapi::Standard_Real"/>
+            </method>
+        </class>
+
+        <class name="gp_XYZ" lifecycle="copy_semantic" implementation_class_name="gp_XYZ" implementation_class_header="gp_XYZ.hxx">
+            <constructor name="default"/>
+            <constructor name="FromCoordinates">
+                <argument name="X" type="Bcapi::Standard_Real"/>
+                <argument name="Y" type="Bcapi::Standard_Real"/>
+                <argument name="Z" type="Bcapi::Standard_Real"/>
+            </constructor>
+            <method name="X" const="true" return="Bcapi::Standard_Real"/>
+            <method name="Y" const="true" return="Bcapi::Standard_Real"/>
+            <method name="Z" const="true" return="Bcapi::Standard_Real"/>
+        </class>
+
+        <class name="gp_Mat" lifecycle="copy_semantic" implementation_class_name="gp_Mat" impelementation_class_header="gp_Mat.hxx">
+            <constructor name="default"/>
+            <method name="Column" return="Bcapi::gp_XYZ">
+                <argument name="Col" type="Bcapi::Standard_Integer"/>
+            </method>
+        </class>
+
+        <class name="gp_Trsf" lifecycle="copy_semantic" implementation_class_name="gp_Trsf" implementation_class_header="gp_Trsf.hxx">
+            <constructor name="default"/>
+            <method name="TranslationPart" const="true" return="Bcapi::gp_XYZ"/>
+            <method name="VectorialPart" const="true" return="Bcapi::gp_Mat"/>
+        </class>
+
+        <class name="gp_Vec" lifecycle="copy_semantic" implementation_class_name="gp_Vec" implementation_class_header="gp_Vec.hxx">
+            <constructor name="default"/>
+            <method name="XYZ" const="true" return="Bcapi:gp_XYZ"/>
+            <method name="Angle" return="double">
+                <argument name="Other" type="Bcapi::gp_Vec"/>
+            </method>
+            <method name="Divide">
+                <argument name="Scalar"/>
+            </method>
+        </class>
+
+        <class name="gp_Dir" lifecycle="copy_semantic" implementation_class_name="gp_Dir" implementation_class_header="gp_Dir.hxx">
+            <constructor name="default"/>
+            <constructor name="FromXYZ">
+                <argument name="XYZ" type="Bcapi::gp_XYZ"/>
+            </constructor>
+            <method name="Reverse"/>
+        </class>
+
+        <class name="gp_Pnt" lifecycle="copy_semantic" implementation_class_name="gp_Pnt" implementation_class_header="gp_Pnt.hxx">
+            <constructor name="default"/>
+            <method name="X" const="true" return="Bcapi::Standard_Real"/>
+            <method name="Y" const="true" return="Bcapi::Standard_Real"/>
+            <method name="Z" const="true" return="Bcapi::Standard_Real"/>
+            <method name="Transform">
+                <argument name="Bcapi::gp_Trsf" type="T"/>
+            </method>
+        </class>
+
+        <class name="TopoDS_Shape" lifecycle="copy_semantic" implementation_class_name="TopoDS_Shape" implementation_class_header="TopoDS_Shape.hxx">
+            <constructor name="default"/>
+            <method name="ShapeType" return="Bcapi::TopAbs_ShapeEnum" const="true"/>
+            <method name="IsNull" return="Bcapi::Standard_Boolean" const="true"/>
+        </class>
+
+        <class name="TopoDS_Vertex" lifecycle="copy_semantic" implementation_class_name="TopoDS_Vertex" implementation_class_header="TopoDS_Vertex.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Edge" lifecycle="copy_semantic" implementation_class_name="TopoDS_Edge" implementation_class_header="TopoDS_Edge.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Wire" lifecycle="copy_semantic" implementation_class_name="TopoDS_Wire" implementation_class_header="TopoDS_Wire.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Face" lifecycle="copy_semantic" implementation_class_name="TopoDS_Face" implementation_class_header="TopoDS_Face.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Shell" lifecycle="copy_semantic" implementation_class_name="TopoDS_Shell" implementation_class_header="TopoDS_Shell.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Solid" lifecycle="copy_semantic" implementation_class_name="TopoDS_Solid" implementation_class_header="TopoDS_Solid.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Compsolid" lifecycle="copy_semantic" implementation_class_name="TopoDS_Compsolid" implementation_class_header="TopoDS_Compsolid.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+        <class name="TopoDS_Compound" lifecycle="copy_semantic" implementation_class_name="TopoDS_Compound" implementation_class_header="TopoDS_Compound.hxx" base="Bcapi::TopoDS_Shape">
+            <constructor name="default"/>
+        </class>
+
+        <class name="STEPCAFControl_Reader" lifecycle="copy_semantic" impelementation_class_name="STEPCAFControl_Reader" implementation_class_header="STEPCAFControl_Reader.hxx">
+            <constructor name="default"/>
+            <method name="ReadFile" return_type="Bcapi::IFSelect_ReturnStatus">
+                <argument name="filename" type="const char*"/>
+            </method>
+            <method name="Transfer" return_type="bool">
+                <argument name="doc" type="Bcapi::TDocStd_Document"/>
+            </method>
+        </class>
+
+        <class name="IGESCAFControl_Reader" lifecycle="copy_semantic" implementation_class_name="IGESCAFControl_Reader" implementation_class_header="IGESCAFControl_Reader.hxx">
+            <constructor name="default"/>
+            <method name="ReadFile" return_type="Bcapi::IFSelect_ReturnStatus">
+                <argument name="filename" type="const char*"/>
+            </method>
+            <method name="Transfer" return_type="bool">
+                <argument name="doc" type="Bcapi::TDocStd_Document"/>
+            </method>
+        </class>
+    </namespace>
+</OpenCASCADE:api>

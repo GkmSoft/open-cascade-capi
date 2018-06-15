@@ -1,0 +1,3 @@
+[submodule "src/beautiful-capi"]
+	path = src/beautiful-capi
+	url = https://github.com/PetrPPetrov/beautiful-capi.git
